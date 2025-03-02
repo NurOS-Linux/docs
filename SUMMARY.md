@@ -41,8 +41,5 @@
 
 * [nano](packages-wiki/nano.md)
 * [apginstall](packages-wiki/apginstall.md)
-
-***
-
-* [HyperFetch](hyperfetch.md)
-* [Скоро...](skoro....md)
+* [HyperFetch](packages-wiki/hyperfetch.md)
+* [Скоро...](packages-wiki/skoro....md)

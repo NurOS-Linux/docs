@@ -6,6 +6,7 @@
 ## tulpar
 
 * [tulpar](tulpar/tulpar.md)
+* [Файлы tulpar](tulpar/faily-tulpar.md)
 
 ## UPKGT
 
@@ -32,6 +33,7 @@
 * [Tulpar Server](tulpar-server/tulpar-server.md)
 * [Tulpar Server api](tulpar-server/tulpar-server-api.md)
 * [Получение SSL](tulpar-server/poluchenie-ssl.md)
+* [Цвета в конфигурации](tulpar-server/cveta-v-konfiguracii.md)
 
 ## Delta Apps
 

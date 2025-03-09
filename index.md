@@ -1,4 +1,4 @@
-# NurOS
+# Home page
 
 ## Introduction
 

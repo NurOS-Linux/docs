@@ -1,6 +1,6 @@
 # Summary
 
-* [Home page](README.md)
+* [Home page](index.md)
 
 ## Tulpar
 
@@ -14,7 +14,7 @@
 * [Using](upkgt/ispolzovanie.md)
 * [Packages](upkgt/pakety.md)
 * [Configuration](upkgt/konfiguraciya.md)
-* [Additional](upkgt/dopolnitelno.md)
+* [Additional](upkgt/additional.md)
 * [API](upkgt/api.md)
 * [Fixing errors](upkgt/ispravlenie-oshibok.md)
 * [Help](upkgt/vklad.md)

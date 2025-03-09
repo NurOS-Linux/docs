@@ -73,3 +73,6 @@ NurOS is distributed under the GNU GPL v3 license. You are free to modify and di
 ***
 
 Thank you for choosing NurOS "Juldyz"! We are confident that the system will become a reliable tool in your work and everyday life.
+
+***
+Copyright (C) 2025 AnmiTali - NurOS

@@ -1,8 +1,8 @@
-# Дополнительно
+# Additional
 
-## Продвинутое использование UPKGT
+## Advanced UPKGT using
 
-### Содержание
+### Summary
 
 1. Скриптинг и автоматизация
 2. Hooks и триггеры
@@ -79,8 +79,8 @@ hooks:
 
 #### Кастомные скрипты
 
-```bash
-#!/bin/bash
+```sh
+#!/bin/sh
 # /etc/upkgt/hooks/pre-install
 
 # Проверка свободного места

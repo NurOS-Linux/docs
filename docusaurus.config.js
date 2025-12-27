@@ -127,6 +127,11 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} NurOS. Licensed under CC BY-SA 4.0. Built with Docusaurus.`,
       },
+      colorMode: {
+        defaultMode: 'dark',
+        disableSwitch: false,
+        respectPrefersColorScheme: true,
+      },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,

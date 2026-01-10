@@ -1,0 +1,8 @@
+{
+  "label": "Switch",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Модульная система управления альтернативами для NurOS"
+  }
+}

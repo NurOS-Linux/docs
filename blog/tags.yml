@@ -37,3 +37,28 @@ nuros:
 пакеты:
   label: "Пакеты"
   description: "Всё о пакетах системы NurOS"
+
+# Итоги и планы
+итоги:
+  label: "Итоги"
+  description: "Итоги периодов разработки"
+
+релиз:
+  label: "Релиз"
+  description: "Информация о релизах"
+
+планы:
+  label: "Планы"
+  description: "Планы развития проекта"
+
+"2026":
+  label: "2026"
+  description: "Посты 2026 года"
+
+roadmap:
+  label: "Roadmap"
+  description: "Дорожная карта развития"
+
+развитие:
+  label: "Развитие"
+  description: "Развитие проекта и новые возможности"

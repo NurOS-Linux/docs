@@ -1,0 +1,8 @@
+{
+  "label": "Стандарт APG",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Спецификация формата пакетов APG"
+  }
+}

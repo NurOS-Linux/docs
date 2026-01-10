@@ -1,0 +1,8 @@
+{
+  "label": "apgbuild",
+  "position": 1,
+  "link": {
+    "type": "generated-index",
+    "description": "Инструмент для сборки пакета APG"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "label": "Tulpar",
+  "position": 2,
+  "link": {
+    "type": "generated-index",
+    "description": "Пакетный менеджер для NurOS и библиотека libapg"
+  }
+}

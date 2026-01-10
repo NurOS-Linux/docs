@@ -1,6 +1,7 @@
 # NurOS Құжаттамасы
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC0-blue.svg)](LICENSE-CC0)
+[![License](https://img.shields.io/badge/License-CCBYSA4-blue.svg)](LICENSE-CC-BY-SA-4.0)
 [![Language](https://img.shields.io/badge/Languages-en%20%7C%20ru%20%7C%20kk-brightgreen.svg)](#аудармалар)
 
 NurOS Linux дистрибутивінің ресми құжаттамасы.
@@ -95,8 +96,8 @@ docs/
 
 ## 📄 Лицензия
 
-- **Құжаттама мазмұны**: [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) лицензиясымен
-- **Код мысалдары**: [MIT License](LICENSE) лицензиясымен
+- **Құжаттама мазмұны**: [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0) лицензиясы бойынша қолжетімді
+- **Код мысалдары**: [CC0](LICENSE-CC0) лицензиясы бойынша қолжетімді
 - **NurOS компоненттері**: Әртүрлі лицензиялар (жеке жобаларды қараңыз)
 
 ## 🔗 Сілтемелер

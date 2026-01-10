@@ -1,6 +1,7 @@
 # Документация NurOS
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC0-blue.svg)](LICENSE-CC0)
+[![License](https://img.shields.io/badge/License-CCBYSA4-blue.svg)](LICENSE-CC-BY-SA-4.0)
 [![Language](https://img.shields.io/badge/Languages-en%20%7C%20ru%20%7C%20kk-brightgreen.svg)](#переводы)
 
 Официальная документация для дистрибутива Linux NurOS.
@@ -95,10 +96,10 @@ docs/
 
 ## 📄 Лицензия
 
-- **Содержимое документации**: Лицензировано под [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-- **Примеры кода**: Лицензировано под [MIT License](LICENSE)
+- **Содержание документации**: Лицензия [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0)
+- **Примеры кода**: Лицензия [CC0](LICENSE-CC0)
 - **Компоненты NurOS**: Различные лицензии (см. отдельные проекты)
-
+- 
 ## 🔗 Ссылки
 
 - **Веб-сайт NurOS**: https://nuros.org

@@ -686,4 +686,4 @@ go build -o ~/bin/apgbuild ./cmd/apgbuild
 
 * **Репозиторий**: https://github.com/NurOS-Linux/apgbuild
 * **Баг-трекер**: https://github.com/NurOS-Linux/apgbuild/issues
-* **Спецификация APGv2**: [Стандарт APG](../standart/apgv2/obzor.md)
+* **Спецификация APGv2**: [Стандарт APG](obzor.md)

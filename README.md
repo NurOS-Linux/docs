@@ -1,7 +1,7 @@
 # NurOS Documentation
 
 [![License](https://img.shields.io/badge/License-CC0-blue.svg)](LICENSE-CC0)
-[![License](https://img.shields.io/badge/License-CC-BY-SA-4.0-blue.svg)](LICENSE-CC-BY-SA-4.0)
+[![License](https://img.shields.io/badge/License-CC-BY-SA-4-blue.svg)](LICENSE-CC-BY-SA-4.0)
 [![Language](https://img.shields.io/badge/Languages-en%20%7C%20ru%20%7C%20kk-brightgreen.svg)](#translations)
 
 Official documentation for NurOS Linux distribution.

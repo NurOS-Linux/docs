@@ -1,6 +1,7 @@
 # NurOS Documentation
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-CC0-blue.svg)](LICENSE-CC0)
+[![License](https://img.shields.io/badge/License-CC-BY-SA-4.0-blue.svg)](LICENSE-CC-BY-SA-4.0)
 [![Language](https://img.shields.io/badge/Languages-en%20%7C%20ru%20%7C%20kk-brightgreen.svg)](#translations)
 
 Official documentation for NurOS Linux distribution.
@@ -95,8 +96,8 @@ We welcome contributions! To contribute:
 
 ## 📄 License
 
-- **Documentation Content**: Licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
-- **Code Examples**: Licensed under [MIT License](LICENSE)
+- **Documentation Content**: Licensed under [CC BY-SA 4.0](LICENSE-CC-BY-SA-4.0)
+- **Code Examples**: Licensed under [CC0](LICENSE-CC0)
 - **NurOS Components**: Various licenses (see individual projects)
 
 ## 🔗 Links

@@ -1,0 +1,57 @@
+---
+import type { NavNode } from '../lib/nav';
+
+interface Props {
+  nodes: NavNode[];
+  currentSlug: string;
+  depth?: number;
+}
+
+const { nodes, currentSlug, depth = 0 } = Astro.props;
+---
+
+{nodes.map((node) => {
+  if (node.type === 'file') {
+    const href = node.slug === 'intro' ? '/docs/intro' : `/docs/${node.slug}`;
+    const isActive = currentSlug === node.slug;
+    return (
+      <a
+        href={href}
+        class={depth === 0 ? `nav-root-link${isActive ? ' active' : ''}` : `nav-link${isActive ? ' active' : ''}`}
+      >
+        {node.label}
+      </a>
+    );
+  }
+
+  const hasActive = (nodes: NavNode[]): boolean =>
+    nodes.some((n) =>
+      n.type === 'file' ? n.slug === currentSlug : hasActive(n.children)
+    );
+
+  const isOpen = hasActive(node.children);
+
+  return (
+    <div class={`nav-section${isOpen ? ' open' : ''}`}>
+      <div class="nav-section-label" data-toggle>
+        {node.label}
+        <span class="nav-section-toggle">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </div>
+      <div class="nav-children nav-nested">
+        <Astro.self nodes={node.children} currentSlug={currentSlug} depth={depth + 1} />
+      </div>
+    </div>
+  );
+})}
+
+<script>
+  document.querySelectorAll('[data-toggle]').forEach((el) => {
+    el.addEventListener('click', () => {
+      el.closest('.nav-section')?.classList.toggle('open');
+    });
+  });
+</script>

@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import { buildNavTree } from '../lib/nav';
+import type { NavDir } from '../lib/nav';
+
+const tree = buildNavTree();
+const sections = tree.filter((n): n is NavDir => n.type === 'dir');
+
+const sectionMeta: Record<string, { desc: string }> = {
+  aether: { desc: 'Спецификация и приложения платформы Aether' },
+  apg: { desc: 'Формат пакетов APG, менеджер Tulpar и инструменты сборки' },
+  installing: { desc: 'Руководства по портированию на различные архитектуры' },
+  utils: { desc: 'Утилиты и вспомогательные инструменты NurOS' },
+};
+---
+
+<Base title="NurOS Docs">
+  <div class="content-inner">
+    <div class="home-hero" data-pagefind-ignore>
+      <div class="home-tag">документация</div>
+      <h1 class="home-title">NurOS</h1>
+      <p class="home-subtitle">
+        Техническая документация операционной системы NurOS — форматы пакетов,
+        инструменты разработки и руководства по установке.
+      </p>
+    </div>
+
+    <div class="home-grid" data-pagefind-ignore>
+      {sections.map((section) => {
+        const meta = sectionMeta[section.dirPath] ?? { desc: '' };
+        const firstFile = section.children.find((n) => n.type === 'file');
+        const firstNestedFile = section.children
+          .filter((n) => n.type === 'dir')
+          .flatMap((n) => n.type === 'dir' ? n.children.filter((c) => c.type === 'file') : [])
+          .at(0);
+        const firstChild = firstFile ?? firstNestedFile;
+        const href = firstChild?.type === 'file'
+          ? `/docs/${firstChild.slug}`
+          : `/`;
+
+        return (
+          <a href={href} class="home-card">
+            <div class="home-card-label">{section.dirPath}</div>
+            <div class="home-card-title">{section.label}</div>
+            {meta.desc && <div class="home-card-desc">{meta.desc}</div>}
+          </a>
+        );
+      })}
+
+      {tree.filter((n) => n.type === 'file').map((node) => {
+        if (node.type !== 'file') return null;
+        return (
+          <a href={`/docs/${node.slug}`} class="home-card">
+            <div class="home-card-label">root</div>
+            <div class="home-card-title">{node.label}</div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Base>

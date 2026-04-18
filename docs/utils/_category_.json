@@ -1,7 +1,8 @@
 {
-  "label": "Утилиты NurOS",
-  "position": 5,
+  "label": "Утилиты",
+  "position": 4,
   "link": {
-    "type": "generated-index"
+    "type": "generated-index",
+    "description": "Системные утилиты и инструменты NurOS"
   }
 }

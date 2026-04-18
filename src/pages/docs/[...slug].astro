@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { buildNavTree, flattenNavTree, sanitizeSlug } from '../../lib/nav';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('docs');
+  return entries.map((entry) => ({
+    params: { slug: sanitizeSlug(entry.id) },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+function extractTitle(body: string): string {
+  const match = body.match(/^#\s+(.+)$/m);
+  return match ? match[1].trim() : 'Документация';
+}
+
+const title = extractTitle(entry.body ?? '');
+
+const flatPages = flattenNavTree(buildNavTree());
+const currentIndex = flatPages.findIndex((p) => p.slug === sanitizeSlug(entry.id));
+const prev = currentIndex > 0 ? flatPages[currentIndex - 1] : null;
+const next = currentIndex < flatPages.length - 1 ? flatPages[currentIndex + 1] : null;
+---
+
+<Base title={`${title} — NurOS Docs`} currentSlug={sanitizeSlug(entry.id)}>
+  <div class="content-inner">
+    <article class="doc-article" data-pagefind-body data-pagefind-meta={`title:${title}`}>
+      <Content />
+    </article>
+
+    <nav class="doc-pagination">
+      <div class="doc-pagination-prev">
+        {prev && (
+          <a href={`/docs/${prev.slug}`} class="pagination-link">
+            <span class="pagination-dir">Предыдущее</span>
+            <span class="pagination-label">{prev.label}</span>
+          </a>
+        )}
+      </div>
+      <div class="doc-pagination-next">
+        {next && (
+          <a href={`/docs/${next.slug}`} class="pagination-link pagination-link--next">
+            <span class="pagination-dir">Следующее</span>
+            <span class="pagination-label">{next.label}</span>
+          </a>
+        )}
+      </div>
+    </nav>
+  </div>
+</Base>

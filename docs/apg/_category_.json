@@ -1,8 +1,8 @@
 {
-  "label": "APG Package",
+  "label": "APG",
   "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "Advanced Package - система пакетов для NurOS"
+    "description": "Система управления пакетами APG"
   }
 }

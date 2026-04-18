@@ -1,0 +1,186 @@
+---
+import '../styles/global.css';
+import NavTree from '../components/NavTree.astro';
+import { buildNavTree } from '../lib/nav';
+
+interface Props {
+  title?: string;
+  currentSlug?: string;
+}
+
+const { title = 'NurOS Docs', currentSlug = '' } = Astro.props;
+const navTree = buildNavTree();
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="description" content="Документация NurOS" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/" class="site-logo">NurOS<span>/</span>docs</a>
+      <div class="header-spacer"></div>
+      <button class="search-trigger" id="search-open" type="button" aria-label="Поиск">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M9.5 9.5L12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Поиск...
+        <span class="search-kbd">Ctrl K</span>
+      </button>
+    </header>
+
+    <div class="site-layout">
+      <nav class="sidebar" aria-label="Navigation">
+        <NavTree nodes={navTree} currentSlug={currentSlug} />
+      </nav>
+
+      <main class="content-area">
+        <slot />
+      </main>
+    </div>
+
+    <div class="search-overlay" id="search-overlay" role="dialog" aria-modal="true" aria-label="Поиск">
+      <div class="search-box">
+        <div class="search-box-input-row">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M11 11L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input
+            type="search"
+            class="search-box-input"
+            id="search-input"
+            placeholder="Поиск по документации..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <div class="search-results" id="search-results">
+          <div class="search-empty">Начните вводить запрос</div>
+        </div>
+        <div class="search-box-footer">
+          <span class="search-hint">esc — закрыть</span>
+          <span class="search-hint">enter — перейти</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const overlay = document.getElementById('search-overlay')!;
+      const input = document.getElementById('search-input') as HTMLInputElement;
+      const results = document.getElementById('search-results')!;
+      const openBtn = document.getElementById('search-open')!;
+
+      let pagefind: any = null;
+      let focusedIndex = -1;
+
+      async function loadPagefind() {
+        if (pagefind) return pagefind;
+        try {
+          pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+          await pagefind.init();
+        } catch {
+          pagefind = null;
+        }
+        return pagefind;
+      }
+
+      function openSearch() {
+        overlay.classList.add('open');
+        input.focus();
+        loadPagefind();
+      }
+
+      function closeSearch() {
+        overlay.classList.remove('open');
+        input.value = '';
+        results.innerHTML = '<div class="search-empty">Начните вводить запрос</div>';
+        focusedIndex = -1;
+      }
+
+      openBtn.addEventListener('click', openSearch);
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeSearch();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          overlay.classList.contains('open') ? closeSearch() : openSearch();
+        }
+        if (e.key === 'Escape') closeSearch();
+
+        if (overlay.classList.contains('open')) {
+          const items = results.querySelectorAll<HTMLElement>('.search-result-item');
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            focusedIndex = Math.min(focusedIndex + 1, items.length - 1);
+            updateFocus(items);
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            focusedIndex = Math.max(focusedIndex - 1, -1);
+            updateFocus(items);
+          } else if (e.key === 'Enter' && focusedIndex >= 0) {
+            items[focusedIndex]?.click();
+          }
+        }
+      });
+
+      function updateFocus(items: NodeListOf<HTMLElement>) {
+        items.forEach((el, i) => el.classList.toggle('focused', i === focusedIndex));
+        if (focusedIndex >= 0) items[focusedIndex]?.scrollIntoView({ block: 'nearest' });
+      }
+
+      let debounceTimer: ReturnType<typeof setTimeout>;
+
+      input.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+          const query = input.value.trim();
+          focusedIndex = -1;
+          if (!query) {
+            results.innerHTML = '<div class="search-empty">Начните вводить запрос</div>';
+            return;
+          }
+
+          const pf = await loadPagefind();
+          if (!pf) {
+            results.innerHTML = '<div class="search-empty">Поиск недоступен — соберите проект (npm run build)</div>';
+            return;
+          }
+
+          const search = await pf.search(query);
+          if (!search.results.length) {
+            results.innerHTML = '<div class="search-empty">Ничего не найдено</div>';
+            return;
+          }
+
+          const top = search.results.slice(0, 8);
+          const data = await Promise.all(top.map((r: any) => r.data()));
+
+          results.innerHTML = data.map((d: any) => `
+            <a class="search-result-item" href="${d.url}">
+              <div class="search-result-title">${d.meta?.title ?? 'Без названия'}</div>
+              ${d.excerpt ? `<div class="search-result-excerpt">${d.excerpt}</div>` : ''}
+              <div class="search-result-path">${d.url}</div>
+            </a>
+          `).join('');
+
+          results.querySelectorAll('.search-result-item').forEach((el) => {
+            el.addEventListener('click', closeSearch);
+          });
+        }, 200);
+      });
+    </script>
+  </body>
+</html>

@@ -28,7 +28,7 @@ Switch поставляется с набором готовых модулей 
 | micro | `/usr/bin/micro` | 45 | Современный терминальный редактор |
 | helix | `/usr/bin/helix` | 40 | Пост-современный модальный редактор |
 | vi | `/usr/bin/vi` | 30 | Классический vi |
-| code | `/usr/bin/code` | 20 | Visual Studio Code (консольная версия) |
+| code | `/usr/bin/code` | 20 | Visual Studio Code |
 | kate | `/usr/bin/kate` | 15 | KDE Advanced Text Editor |
 | gedit | `/usr/bin/gedit` | 15 | GNOME Text Editor |
 

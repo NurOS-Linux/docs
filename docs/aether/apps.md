@@ -134,19 +134,8 @@ Aether Apps (ранее Delta Apps) — это набор программ (ко
 4. **Документация** — пишите руководства и туториалы
 5. **Перевод** — помогайте с локализацией
 
-### Связаться с командой
-
-- **Telegram**: [@nuros_tg](https://t.me/nuros_tg)
-- **GitHub**: [NurOS-Linux](https://github.com/NurOS-Linux)
-- **Анкета разработчика**: [become.nuros.org](https://become.nuros.org)
-
 ## Дополнительная информация
 
 - [Спецификация AetherDE](./specification.md)
 - [Руководство по разработке](#) (готовится)
 - [Design Guidelines](#) (готовится)
-
----
-
-**Всего приложений**: 18
-**Лицензия**: GNU GPL 3.0

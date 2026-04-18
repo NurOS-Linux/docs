@@ -1,0 +1,138 @@
+---
+import Base from '../layouts/Base.astro';
+import { flattenNavTree, buildNavTree } from '../lib/nav';
+
+const allPages = flattenNavTree(buildNavTree()).map((p) => ({
+  slug: p.slug,
+  label: p.label,
+  href: `/docs/${p.slug}`,
+}));
+
+const allPagesJson = JSON.stringify(allPages);
+---
+
+<Base title="404 — NurOS Docs">
+  <div class="content-inner">
+    <div class="not-found">
+      <div class="not-found-code">404</div>
+      <div class="not-found-title">Страница не найдена</div>
+      <p class="not-found-desc">Запрошенный путь не существует в документации.</p>
+
+      <div id="suggestions" class="not-found-suggestions" style="display:none">
+        <div class="not-found-hint">Возможно, вы имели в виду:</div>
+        <ul class="not-found-list" id="suggestions-list"></ul>
+      </div>
+
+      <a href="/" class="not-found-home">На главную</a>
+    </div>
+  </div>
+</Base>
+
+<script define:vars={{ allPagesJson }}>
+  const pages = JSON.parse(allPagesJson);
+  const path = window.location.pathname.replace(/^\/docs\//, '').replace(/\/$/, '');
+
+  function similarity(a, b) {
+    const la = a.toLowerCase();
+    const lb = b.toLowerCase();
+    if (lb.includes(la) || la.includes(lb)) return 1;
+    const partsA = la.split(/[\/\-_]/);
+    const partsB = lb.split(/[\/\-_]/);
+    const shared = partsA.filter((p) => partsB.some((q) => q.includes(p) || p.includes(q)));
+    return shared.length / Math.max(partsA.length, partsB.length);
+  }
+
+  const scored = pages
+    .map((p) => ({ ...p, score: similarity(path, p.slug) }))
+    .filter((p) => p.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+
+  if (scored.length > 0) {
+    const list = document.getElementById('suggestions-list');
+    const box = document.getElementById('suggestions');
+    scored.forEach((p) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<a href="${p.href}">${p.label}</a><span class="not-found-path">${p.href}</span>`;
+      list.appendChild(li);
+    });
+    box.style.display = 'block';
+  }
+</script>
+
+<style>
+  .not-found-suggestions {
+    margin: 28px auto;
+    max-width: 420px;
+    text-align: left;
+  }
+
+  .not-found-hint {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .not-found-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .not-found-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .not-found-list li:last-child {
+    border-bottom: none;
+  }
+
+  .not-found-list li:hover {
+    background: var(--surface-2);
+  }
+
+  .not-found-list a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .not-found-list a:hover {
+    color: var(--accent-text);
+  }
+
+  .not-found-path {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+
+  .not-found-home {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 8px 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius);
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+
+  .not-found-home:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+</style>
